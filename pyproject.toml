@@ -1,0 +1,85 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "roadgateway"
+version = "0.1.0"
+description = "Enterprise API Gateway for BlackRoad OS"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [
+    { name = "BlackRoad OS, Inc.", email = "engineering@blackroad.systems" }
+]
+keywords = [
+    "api-gateway",
+    "load-balancer",
+    "reverse-proxy",
+    "rate-limiting",
+    "authentication",
+    "microservices",
+    "blackroad",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: System :: Networking",
+]
+
+dependencies = []
+
+[project.optional-dependencies]
+yaml = ["pyyaml>=6.0"]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "ruff>=0.1",
+    "mypy>=1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/BlackRoad-OS/roadgateway"
+Documentation = "https://blackroad.systems/docs/roadgateway"
+Repository = "https://github.com/BlackRoad-OS/roadgateway"
+Issues = "https://github.com/BlackRoad-OS/roadgateway/issues"
+
+[project.scripts]
+roadgateway = "roadgateway_core.cli:main"
+
+[project.entry-points."roadgateway.plugins"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/roadgateway_core"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["roadgateway_core"]
+
+[tool.black]
+line-length = 88
+target-version = ["py39", "py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "I", "N", "W"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
