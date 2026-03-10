@@ -4,9 +4,9 @@
  */
 
 import { Context, Next } from 'hono';
-import type { Env } from '../index';
+import type { AppEnv } from '../index';
 
-export const auth = async (c: Context<{ Bindings: Env }>, next: Next) => {
+export const auth = async (c: Context<AppEnv>, next: Next) => {
   // Skip auth for health check
   if (c.req.path === '/health') {
     return next();
@@ -45,7 +45,7 @@ export const auth = async (c: Context<{ Bindings: Env }>, next: Next) => {
 /**
  * Require authentication (strict mode)
  */
-export const requireAuth = async (c: Context<{ Bindings: Env }>, next: Next) => {
+export const requireAuth = async (c: Context<AppEnv>, next: Next) => {
   const apiKey = c.req.header('X-API-Key');
   const authHeader = c.req.header('Authorization');
 

@@ -11,15 +11,23 @@
     "lint": "eslint src/",
     "test": "vitest"
   },
-  "keywords": ["api-gateway", "edge", "cloudflare", "workers", "blackroad"],
+  "keywords": [
+    "api-gateway",
+    "edge",
+    "cloudflare",
+    "workers",
+    "blackroad"
+  ],
   "author": "BlackRoad OS <blackroad.systems@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240117.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "@typescript-eslint/parser": "^8.57.0",
+    "eslint": "^8.56.0",
     "typescript": "^5.3.3",
-    "wrangler": "^3.24.0",
     "vitest": "^1.2.0",
-    "eslint": "^8.56.0"
+    "wrangler": "^3.24.0"
   },
   "dependencies": {
     "hono": "^3.12.0"

@@ -70,7 +70,7 @@ export class SlidingWindowLimiter {
     // Get current state
     const stateData = await this.kv.get(stateKey, 'json') as RateLimitState | null;
 
-    let state: RateLimitState = stateData || {
+    const state: RateLimitState = stateData || {
       count: 0,
       windowStart: now,
       lastUpdate: now,
