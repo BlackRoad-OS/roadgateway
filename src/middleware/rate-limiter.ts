@@ -4,7 +4,7 @@
  */
 
 import { Context, Next } from 'hono';
-import type { Env } from '../index';
+import type { AppEnv } from '../index';
 
 interface RateLimitConfig {
   windowMs: number;   // Time window in ms
@@ -18,9 +18,9 @@ const defaultConfig: RateLimitConfig = {
   keyPrefix: 'rl:',
 };
 
-export const rateLimiter = async (c: Context<{ Bindings: Env }>, next: Next) => {
+export const rateLimiter = async (c: Context<AppEnv>, next: Next) => {
   const config = defaultConfig;
-  const kv = c.env.RATE_LIMIT;
+  const kv = c.env?.RATE_LIMIT;
 
   if (!kv) {
     // If KV not configured, skip rate limiting

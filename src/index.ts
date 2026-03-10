@@ -15,17 +15,18 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 import { rateLimiter } from './middleware/rate-limiter';
-import { auth } from './middleware/auth';
 import { routes } from './routes';
 
-export interface Env {
+export type AppBindings = {
   RATE_LIMIT: KVNamespace;
   ENVIRONMENT: string;
   API_KEYS?: string;
   BACKEND_URL?: string;
-}
+};
 
-const app = new Hono<{ Bindings: Env }>();
+export type AppEnv = { Bindings: AppBindings };
+
+const app = new Hono<AppEnv>();
 
 // Global middleware
 app.use('*', logger());

@@ -3,13 +3,13 @@
  */
 
 import { Hono } from 'hono';
-import type { Env } from '../index';
+import type { AppEnv } from '../index';
 
-export const routes = new Hono<{ Bindings: Env }>();
+export const routes = new Hono<AppEnv>();
 
 // Proxy to AI service
 routes.all('/ai/*', async (c) => {
-  const backendUrl = c.env.BACKEND_URL || 'https://api.blackroad.io';
+  const backendUrl = c.env?.BACKEND_URL || 'https://api.blackroad.io';
   const path = c.req.path.replace('/api/ai', '');
 
   const response = await fetch(`${backendUrl}/ai${path}`, {
@@ -22,7 +22,7 @@ routes.all('/ai/*', async (c) => {
   });
 
   const data = await response.json();
-  return c.json(data, response.status as any);
+  return c.json(data, { status: response.status });
 });
 
 // Service discovery
@@ -52,7 +52,7 @@ routes.all('/echo', async (c) => {
 routes.get('/version', (c) => {
   return c.json({
     gateway: '0.1.0',
-    environment: c.env.ENVIRONMENT,
+    environment: c.env?.ENVIRONMENT,
     runtime: 'Cloudflare Workers',
   });
 });
